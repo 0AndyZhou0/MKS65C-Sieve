@@ -27,14 +27,32 @@ int main(int argc, char * argv[]){
 }
 
 int sieve(int n){
-  int i = 1;
-  double max = sqrt(n);
-  char nums[10];
-  int index = 2;
-  int prime = 2;
-  for(;i < n;i++){
-    for(;index <= 10;index+=prime){
-      nums[index] = 1;
+  if(n == 1){
+    return 2;
+  }
+  int i = 2;
+  int max;
+  if(n > 5000){
+    max = 1.15 * n * log(n);
+  }else{
+    max = 1.3 * n * log(n) + 10;
+  }
+  char nums[max];
+  int index = 1;
+  int increment;
+  int temp;
+  while(i < n){
+    while(nums[index]){
+      index += 2;
+    }
+    increment = index * 4 + 2;
+    temp = index;
+    for(;temp < max;temp += increment){
+      nums[temp] = 1;
+    }
+    i++;
+    if(i == n){
+      return index * 2 + 1;
     }
   }
   return 0;
