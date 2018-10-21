@@ -30,29 +30,40 @@ int sieve(int n){
   if(n == 1){
     return 2;
   }
+
+  //All the variables
   int i = 1;
+  int index = 1;
+  int prime;
+  int temp;
   int max;
+
+
+  //determines size of array (divided by 2 to ignore even numbers)
   if(n > 5000){
     max = .575 * n * log(n);
   }else{
     max = .65 * n * log(n) + 5;
   }
+
   char nums[max];
-  int index = 1;
-  int increment;
-  int temp;
-  while(i < n || index < max){
+
+  while(i < n){
+    //finds next index that refers to a prime
     while(nums[index]){
       index++;
     }
-    increment = index * 2 + 1;
-    temp = index;
-    for(;temp < max;temp += increment){
+
+    prime = index * 2 + 1;
+
+    //marks all multiples of prime
+    for(temp = index;temp < max;temp += prime){
       nums[temp] = 1;
     }
-    i++;
-    if(i == n){
-      return increment;
+
+    //checks if we have reached the nth prime
+    if(++i == n){
+      return prime;
     }
   }
   return 0;
