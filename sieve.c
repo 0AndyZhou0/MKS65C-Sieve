@@ -30,29 +30,29 @@ int sieve(int n){
   if(n == 1){
     return 2;
   }
-  int i = 2;
+  int i = 1;
   int max;
   if(n > 5000){
-    max = 1.15 * n * log(n);
+    max = .575 * n * log(n);
   }else{
-    max = 1.3 * n * log(n) + 10;
+    max = .65 * n * log(n) + 5;
   }
   char nums[max];
   int index = 1;
   int increment;
   int temp;
-  while(i < n){
+  while(i < n || index < max){
     while(nums[index]){
-      index += 2;
+      index++;
     }
-    increment = index * 4 + 2;
+    increment = index * 2 + 1;
     temp = index;
     for(;temp < max;temp += increment){
       nums[temp] = 1;
     }
     i++;
     if(i == n){
-      return index * 2 + 1;
+      return increment;
     }
   }
   return 0;
