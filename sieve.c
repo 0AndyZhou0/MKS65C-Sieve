@@ -3,6 +3,7 @@
 #include <math.h>
 #include "sieve.h"
 
+/*
 int main(int argc, char * argv[]){
   int iterations = 1;
   int target = 1000000;
@@ -25,11 +26,15 @@ int main(int argc, char * argv[]){
   }
   return 0;
 }
+*/
 
 int sieve(int n){
   if(n == 1){
     return 2;
   }
+  //if(n == 2){
+  //  return 3;
+  //}
 
   //All the variables
   int i = 1;
@@ -46,20 +51,22 @@ int sieve(int n){
     max = .65 * n * log(n) + 5;
   }
 
-  char nums[max];
+  char *nums = (char*)calloc(max,sizeof(char));
 
   while(i < n){
     //finds next index that refers to a prime
-    while(nums[index]){
-      index++;
-    }
+    while(nums[++index]);
 
     prime = index * 2 + 1;
 
     //marks all multiples of prime
-    for(temp = index;temp < max;temp += prime){
+    temp = index;
+    while((temp += prime) < max){
       nums[temp] = 1;
     }
+    //for(temp = index;temp < max;temp += prime){
+    //  nums[temp] = 1;
+    //}
 
     //checks if we have reached the nth prime
     if(++i == n){
